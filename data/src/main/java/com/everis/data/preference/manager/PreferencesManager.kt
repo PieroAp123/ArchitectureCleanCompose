@@ -50,6 +50,7 @@ class PreferencesManager(context: Context) {
             .apply()
     }
 
+
     fun getString(key: String): String {
         return sharedPreferences.getString(key, String()) ?: String()
     }

@@ -23,7 +23,13 @@ open class LoginUseCase(
         return user
     }
 
+
+    fun isUserLogin(): Boolean {
+        return loginRepositoryPreference.isLogin()
+    }
+
     fun getUSer(): User {
         return loginRepositoryPreference.getUser()
     }
+
 }

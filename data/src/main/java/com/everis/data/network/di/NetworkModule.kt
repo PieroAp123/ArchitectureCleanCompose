@@ -88,8 +88,8 @@ class ApiInterceptor(private val context: Context, private val sharedPreferences
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         request = request.newBuilder()
-            .header("Authorization", AUTHORIZATION + sharedPreferences.getString(PREFERENCE_TOKEN))
-            .header("x-os", PLATFORM)
+            //.header("Authorization", AUTHORIZATION + sharedPreferences.getString(PREFERENCE_TOKEN))
+            //.header("x-os", PLATFORM)
             /*.header("x-density", getDensity(context).toString())
             .header("x-width", getWidht(context).toString())
             .header("x-height", getHeight(context).toString())*/

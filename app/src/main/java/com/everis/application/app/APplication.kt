@@ -21,7 +21,7 @@ class APplication: Application() {
             androidContext(this@APplication)
             modules(listOf(preferenceModule, networkModule, domainModule, viewModelsModule))
         }
-        getKoin().setProperty(BASE_URL, "https://www.codeapp.us/")
+        getKoin().setProperty(BASE_URL, "https://us-central1-mkt-003001-00813.cloudfunctions.net/")
     }
 
 }

@@ -41,7 +41,7 @@ data class UserResponse(
     @field:SerializedName("token")
     var token: String? = null
 ){
-    fun toUser() = User(userName, email, firstName, lastName, token)
+    fun toUser() = User(userName)
 }
 
 data class StatusResponse(
