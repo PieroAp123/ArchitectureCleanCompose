@@ -12,6 +12,7 @@ import com.everis.domain.entities.*
 import com.everis.domain.extensions.toError
 import com.everis.domain.usecases.LoginUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,6 +39,7 @@ open class LoginViewModel(
     private val api2 = ApiServiceCikla().getRetrofit2()
     private val userListString = MutableLiveData<UserDataResponse>()
 
+    @DelicateCoroutinesApi
     fun doLogin(username: String, password: String) {
 
         GlobalScope.launch(dispatcherProvider.IO + CoroutineExceptionHandler { _, ex ->

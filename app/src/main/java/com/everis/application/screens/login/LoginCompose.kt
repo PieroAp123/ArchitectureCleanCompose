@@ -53,11 +53,11 @@ class LoginCompose: ComponentActivity() {
                     var emailCesar: String = cifraCesar(20, textEmail)
                     var passCesar: String = cifraCesar(20, textPassword)
                     Button(onClick = { Toast.makeText(this@LoginCompose, "el correo es: $textEmail, contraseña: $textPassword", Toast.LENGTH_SHORT).show()
-                        loginViewModel.doLogin2(emailCesar, passCesar)
+                        loginViewModel.doLogin(emailCesar, passCesar)
                         Log.e("email encriptado", emailCesar)
                         Log.e("pass encriptado", passCesar)
                     }) {
-                        Text("Button")
+                        Text("Ingresar")
                     }
                 }
 

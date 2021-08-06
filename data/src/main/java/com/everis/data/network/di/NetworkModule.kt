@@ -1,6 +1,7 @@
 package com.everis.data.network.di
 
 import android.content.Context
+import com.everis.data.BuildConfig
 import com.everis.data.network.ApiConfig
 import com.everis.data.network.repository.LoginRepository
 import com.everis.data.network.utils.AUTHORIZATION
@@ -34,7 +35,6 @@ val networkModule = module {
     single { providerHttpLoggingInterceptor() }
     single { providerCache(get()) }
     single { ApiInterceptor(get(), get()) }
-    //single { ConnectionFactory(get()) }
     single { providerOkHttpClient(get(), get())}
     single { providerRetrofit(getProperty(BASE_URL), get()) }
     single { providerApi(get()) }
@@ -56,8 +56,7 @@ fun providerRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
 
 fun providerOkHttpClient(
     httpLoggingInterceptor: HttpLoggingInterceptor,
-    apiInterceptor: ApiInterceptor,
-    //connectionFactory: ConnectionFactory
+    apiInterceptor: ApiInterceptor
 ): OkHttpClient {
     return OkHttpClient.Builder()
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -65,10 +64,6 @@ fun providerOkHttpClient(
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)
         .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(apiInterceptor)
-        /*.sslSocketFactory(
-            connectionFactory.getSSLSocketFactory(),
-            connectionFactory.getX509TrustManagerV2()
-        )*/
         .build()
 }
 
@@ -79,7 +74,7 @@ fun providerCache(context: Context): Cache {
 
 fun providerHttpLoggingInterceptor(): HttpLoggingInterceptor {
     val logging = HttpLoggingInterceptor()
-    //logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+    logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
     return logging
 }
 
@@ -88,8 +83,8 @@ class ApiInterceptor(private val context: Context, private val sharedPreferences
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         request = request.newBuilder()
-            //.header("Authorization", AUTHORIZATION + sharedPreferences.getString(PREFERENCE_TOKEN))
-            //.header("x-os", PLATFORM)
+            .header("Authorization", AUTHORIZATION + sharedPreferences.getString(PREFERENCE_TOKEN))
+            .header("x-os", PLATFORM)
             /*.header("x-density", getDensity(context).toString())
             .header("x-width", getWidht(context).toString())
             .header("x-height", getHeight(context).toString())*/
@@ -99,7 +94,7 @@ class ApiInterceptor(private val context: Context, private val sharedPreferences
 }
 
 
-class ConnectionFactory(private val keyManager: Array<KeyManager>? = null) {
+/*class ConnectionFactory(private val keyManager: Array<KeyManager>? = null) {
 
     private var sslSocketFactory: SSLSocketFactory? = null
     private var x509TrustManager: X509TrustManager? = null
@@ -133,5 +128,4 @@ class ConnectionFactory(private val keyManager: Array<KeyManager>? = null) {
             }
         }
         return x509TrustManager!!
-    }
-}
+    }*/

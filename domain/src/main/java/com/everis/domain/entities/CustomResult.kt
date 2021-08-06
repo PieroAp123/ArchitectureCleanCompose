@@ -4,10 +4,6 @@ sealed class CustomResult<out T> {
     data class OnSuccess<out T>(val data: T) : CustomResult<T>()
     data class OnError<out T>(val error: CustomError) : CustomResult<T>()
 }
-sealed class CustomResult2<out T> {
-    data class OnSuccess<out T>(val data: T) : CustomResult<T>()
-    data class OnError<out T>(val error: CustomError) : CustomResult<T>()
-}
 
 
 open class CustomError (
